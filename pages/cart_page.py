@@ -1,12 +1,17 @@
 from selenium.webdriver.common.by import By
+from pages.base_page import BasePage
 
-class CartPage:
+class CartPage(BasePage):
+
+    CART_ITEM = (By.CLASS_NAME, "cart_item")
+    CHECKOUT_BUTTON = (By.ID, "checkout")
+
     def __init__(self, driver):
-        self.driver = driver
+        super().__init__(driver)
 
     def get_cart_items(self):
-        self.driver.find_elements(By.CLASS_NAME, "cart_item")
+        return self.driver.find_elements(*self.CART_ITEM)
 
     def click_checkout(self):
-        self.driver.find_element(By.ID, "checkout").click()
+        self.click(self.CHECKOUT_BUTTON)
     

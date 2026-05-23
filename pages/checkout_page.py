@@ -1,37 +1,33 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from pages.base_page import BasePage
 
 
-class CheckoutPage:
+class CheckoutPage(BasePage):
+
+    FIRST_NAME_INPUT = (By.ID, "first-name")
+    LAST_NAME_INPUT = (By.ID, "last-name")
+    POSTAL_CODE_INPUT = (By.ID, "postal-code")
+    CONTINUE_BUTTON = (By.ID, "continue")
+    FINISH_BUTTON = (By.ID, "finish")
+    SUCCESS_MESSAGE = (By.CLASS_NAME, "complete-header")
+    ERROR_MESSAGE = (By.CLASS_NAME, "error-message-container")
 
     def __init__(self, driver):
-        self.driver = driver
-        self.wait = WebDriverWait(driver, 10)
-
-    def type_into_field(self, locator, value):
-        field = self.wait.until(EC.element_to_be_clickable(locator))
-        field.click()
-        field.clear()
-        field.send_keys(value)
+        super().__init__(driver)
 
     def fill_information(self, first_name, last_name, postal_code):
-        self.type_into_field((By.ID, "first-name"), first_name)
-        self.type_into_field((By.ID, "last-name"), last_name)
-        self.type_into_field((By.ID, "postal-code"), postal_code)
+        self.type(self.FIRST_NAME_INPUT, first_name)
+        self.type(self.LAST_NAME_INPUT, last_name)
+        self.type(self.POSTAL_CODE_INPUT, postal_code)
 
     def continue_checkout(self):
-        self.wait.until(EC.element_to_be_clickable((By.ID, "continue"))).click()
+        self.click(self.CONTINUE_BUTTON)
 
     def finish_order(self):
-        self.wait.until(EC.element_to_be_clickable((By.ID, "finish"))).click()
+        self.click(self.FINISH_BUTTON)
 
     def get_success_message(self):
-        return self.wait.until(
-            EC.visibility_of_element_located((By.CLASS_NAME, "complete-header"))
-        ).text
-    
+        return self.get_text(self.SUCCESS_MESSAGE)
+
     def get_error_message(self):
-        return self.wait.until(
-            EC.visibility_of_element_located((By.CLASS_NAME, "error-message-container"))
-        ).text
+        return self.get_text(self.ERROR_MESSAGE)
