@@ -6,3 +6,5 @@ __pycache__/
 screenshots/
 report.html
 *.pyc
+report.html
+report/
