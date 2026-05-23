@@ -31,3 +31,9 @@ class InventoryPage:
         )
 
         return len(cart_badges) == 0
+    
+    def go_to_cart_page(self):
+        self.driver.find_element(
+            By.CLASS_NAME,
+            "shopping_cart_link"
+        ).click()
