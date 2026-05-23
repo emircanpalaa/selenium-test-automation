@@ -1,10 +1,13 @@
 venv/
 .venv/
+selenium-devops-project/
+selenium-devops-project/venv/
 __pycache__/
 .pytest_cache/
 .vscode/
 screenshots/
 report.html
 *.pyc
-report.html
 report/
+reports/
+allure-results/

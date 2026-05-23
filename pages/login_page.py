@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 
@@ -12,6 +13,7 @@ class LoginPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
+    @allure.step("Login with username: {username}")
     def login(self, username, password):
         self.type(self.USERNAME_INPUT, username)
         self.type(self.PASSWORD_INPUT, password)
